@@ -3,6 +3,7 @@
     <div>
       <app-header></app-header>
       <movies :image_url="image_url"></movies>
+      <actions></actions>
     </div>
   `
 
