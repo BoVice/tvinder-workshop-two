@@ -83,4 +83,14 @@ h1 {
   display: flex;
   justify-content: center;
 }
+
+.icon {
+  fill: #04AC44;
+  height: 2.5em;
+  width: 2.5em;
+}
 /*-----------------------------------------------------*/
+
+.svg-header {
+  display: none;
+}
