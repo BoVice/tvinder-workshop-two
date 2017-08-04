@@ -2,20 +2,17 @@
 <html>
 <head>
   <title>Welcome to Vue</title>
-  <script src="assets/vue.js"></script>
+  <script src="src/assets/vue.js"></script>
+  <link rel="stylesheet" type="text/css" href="src/assets/stylesheets/tvinder.css">
+
 </head>
 <body>
+
   <div id="app">
-    <h1>{{ hello }}</h1>
+    <tvinder-app></tvinder-app>
   </div>
 
-  <script>
-    new Vue({
-      el: '#app',
-      data: {
-        hello: "world"
-      }
-    })
-  </script>
+<script src="src/components/app.js"></script>
+<script src="src/main.js"></script>
 </body>
 </html>
