@@ -65,6 +65,39 @@ So without further adeu, let's register our first component. We will be adding t
 There are many ways to define the template for a Vue component. Here we are simply defining a string of HTML and setting it to a variable, and then telling the Vue component to use this string as the template. The other important part of this file is `Vue.component()`. Here we give the component the name of `app-header` and define what the template will be. Other component behavior will also be defined in this component. We will discuss this later.
 
 3. Now that we have a component to render, we need to load it into our app. Add a refernce to the component `<script src="src/components/header.js"></script>` to our `index.html` in order to load it.
+
+`index.html`
+```
+...
+<body>
+
+  <div id="app">
+    <tvinder-app></tvinder-app>
+  </div>
+
+<script src="src/components/app.js"></script>
+<script src="src/components/header.js"></script>
+<script src="src/main.js"></script>
+</body>
+...
+```
+
 4. Now that we have loaded the component, we need to render it. Add `<app-header></app-header>` to our `app.js` component.
+
+`src/components/app.js`
+```
+((() => {
+  const html = `
+    <div>
+      <app-header></app-header>
+    </div>
+  `
+
+  Vue.component("tvinder-app", {
+    template: html,
+  })
+}))()
+```
+
 5. Presto! That is it, our first component.
 6. (Optional) Add in some CSS styling for our component in `src/assets/stylesheets/tvinder.css`
