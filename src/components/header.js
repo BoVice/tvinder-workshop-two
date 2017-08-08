@@ -25,13 +25,11 @@
     computed: {
       likes() {
         const self = this
-
         return self.$store.state.likes
       },
 
       disLikes() {
         const self = this
-
         return self.$store.state.disLikes
       }
     }

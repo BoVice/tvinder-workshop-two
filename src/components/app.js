@@ -43,8 +43,6 @@
     methods: {
       handleLikes(vote) {
         const self = this
-
-
         self.$store.dispatch("updateLikeCount", vote)
         self.$store.dispatch("updateLikedMovies", self.movie)
         self.incrementImage()
@@ -52,7 +50,6 @@
 
       handleDisLikes(vote) {
         const self = this
-
         self.$store.dispatch("updateDisLikeCount", vote)
         self.$store.dispatch("updateDisLikedMovies", self.movie)
         self.incrementImage()
@@ -66,10 +63,10 @@
       incrementImage() {
         const self = this
 
+        self.imageIndex += 1
+
         if(self.imageIndex > (self.movieData.length-1)) {
           self.imageIndex = 0
-        } else {
-          self.imageIndex +=1
         }
       },
 
@@ -79,6 +76,5 @@
         self.showLists = !self.showLists
       }
     }
-
   })
 }))()
