@@ -254,7 +254,118 @@ Now we are using props to render an image!
 
 
 ### Step-5 - Create First Method
+In this step we will be creating our first method and triggering that method from the webpage. Methods are another Vue.js custom attribute. We use methods to define the behaviors of a component. All methods are housed in the 
 
+```
+methods: {
+  // My methods go here.
+}
+```
+attribute on a Vue.js component. Inside methods we can declare any functions we will need. For example, let's say we had a calculator component, we might need a method to do some addition or subtraction. 
+
+`calculator.js`
+```
+ methods: {
+ 
+  add(a, b) {
+    return (a + b)
+  },
+  
+  subtract(a, b) {
+    return (a - b)
+  }
+  
+  // Other useful methods
+  ...
+  
+ }
+```
+
+You can even use methods inside other methods by using a refernce to `this`. For example: 
+
+`talk.js`
+```  
+  say() {
+    this.phrase("I'm Pickle Rickkkk!")
+  },
+  
+  phrase(somePhrase) {
+    alert(somePhrase)
+  }
+  
+  // Other useful methods
+  ...
+  
+ }
+```
+
+Now that we know some of the basics about methods, let's wire up some in our component. Let's start with something simple. We can make a link to click, that will alert some text in our window. 
+
+1. First let's make an actions component that will contain all of the interactions we want to have with the app. This will be helpful to us later as we continue to add more and more pieces. 
+
+`src/components/actions.js`
+```
+((() => {
+  const html = `
+  <div class="actions">
+  </div>
+  `
+
+  Vue.component("actions", {
+    template: html,
+
+  })
+}))()
+```
+
+2. Next we will add our methods attribute and a simple method.
+
+`src/components/actions.js`
+```
+((() => {
+  const html = `
+  <div class="actions">
+  </div>
+  `
+
+  Vue.component("actions", {
+    template: html,
+
+    methods: {
+      myFirstMethod() {
+        alert("I have been clicked!")
+      }
+    }
+  })
+}))()
+```
+
+3. Finally let's fire off this method from a link on the webpage.
+
+`src/components/actions.js`
+```
+((() => {
+  const html = `
+  <div class="actions">
+    <div class="controls">
+      <a id="skip" href="#" v-on:click.prevent="myFirstMethod" class="icon-button">Click Me!</a>  
+    </div>
+  </div>
+  `
+
+  Vue.component("actions", {
+    template: html,
+
+    methods: {
+      myFirstMethod() {
+        alert("I have been clicked!")
+      }
+    }
+  })
+}))()
+```
+
+Let's take a step back and look at the what is happening in the template. `v-on:click.prevent="myFirstMethod"` Here we are using the `v-on` directive for event handling. Events will be touched on more in the next step, and `v-on` is a little out of the scope of this project. But in simple terms, this just means, on - click - do - myFirstMethod. So when this link is clicked, the `myFirstMethod` function will fire off!
 
 ### Step-6 - Use Events to Transmit Data
 
