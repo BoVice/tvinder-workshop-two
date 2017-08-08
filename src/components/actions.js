@@ -29,7 +29,8 @@
 
       decrement() {
         const self = this
-        self.$emit('handleLikes', -1)
+
+        self.$emit('handleDisLikes', 1)
       }
     }
   })

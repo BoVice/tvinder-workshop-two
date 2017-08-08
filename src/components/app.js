@@ -3,7 +3,8 @@
     <div>
       <app-header :likes="likes"></app-header>
       <movies :movie="movie"></movies>
-      <actions @handleLikes="handleLikes" @handleSkip="handleSkip"></actions>
+      <actions @handleLikes="handleLikes" @handleSkip="handleSkip"
+                @handleDisLikes="handleDisLikes"></actions>
     </div>
   `
 
@@ -27,6 +28,12 @@
 
         return self.$store.state.likes
       },
+
+      disLikes() {
+        const self = this
+
+        return self.$store.state.disLikes
+      }
     },
 
     methods: {
@@ -35,6 +42,13 @@
 
 
         self.$store.dispatch("updateLikeCount", vote)
+        self.incrementImage()
+      },
+
+      handleDisLikes(vote) {
+        const self = this
+
+        self.$store.dispatch("updateDisLikeCount", vote)
         self.incrementImage()
       },
 
