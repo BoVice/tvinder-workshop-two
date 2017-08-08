@@ -425,25 +425,7 @@ Let's take a step back and look at the what is happening in the template. `v-on:
 
 ### Step-6 - Use Events to Transmit Data
 Now that we know how to create a method that does some action, we want to implement our like, dislike, and skip methods. In this step let's wire up those actions to influence our like count. We will make like increment the count by one, dislike decrement the count by 1 and skip will not do anything to the count. So our `actions` component will cause an action that changes the value of `likes`, and our `header` component will have to know when `likes` has changed and render that value. Looking at the structure of the app, we see that `actions` and `header` are siblings, and children of the `tvinder-app` component. We know that we can use props to pass data from parent to child, but how can we pass information from child to parent? Every Vue component has an events interface. This allows the component to listen to an event, and trigger an event. We saw the first of this interface in the previous step where we used `v-on` to listen for a click event. Here we will want to do both, trigger an event for one of our three actions, and listen for that event on the parent component to register that something has happened. 
-1. First let's add some necessary HTML markup so that we can use click events to fire off our methods. 
-`index.html`
-```javascript
-...
-  <link rel="stylesheet" type="text/css" href="src/assets/stylesheets/tvinder.css">
-  <svg class="svg-header">
-    <symbol id="icon-heart" viewBox="0 0 32 32">
-      <title>heart</title>
-      <path d="M23.6 2c-3.363 0-6.258 2.736-7.599 5.594-1.342-2.858-4.237-5.594-7.601-5.594-4.637 0-8.4 3.764-8.4 8.401 0 9.433 9.516 11.906 16.001 21.232 6.13-9.268 15.999-12.1 15.999-21.232 0-4.637-3.763-8.401-8.4-8.401z"></path>
-    </symbol>
-    <symbol id="icon-cross" viewBox="0 0 32 32">
-      <title>cross</title>
-      <path d="M31.708 25.708c-0-0-0-0-0-0l-9.708-9.708 9.708-9.708c0-0 0-0 0-0 0.105-0.105 0.18-0.227 0.229-0.357 0.133-0.356 0.057-0.771-0.229-1.057l-4.586-4.586c-0.286-0.286-0.702-0.361-1.057-0.229-0.13 0.048-0.252 0.124-0.357 0.228 0 0-0 0-0 0l-9.708 9.708-9.708-9.708c-0-0-0-0-0-0-0.105-0.104-0.227-0.18-0.357-0.228-0.356-0.133-0.771-0.057-1.057 0.229l-4.586 4.586c-0.286 0.286-0.361 0.702-0.229 1.057 0.049 0.13 0.124 0.252 0.229 0.357 0 0 0 0 0 0l9.708 9.708-9.708 9.708c-0 0-0 0-0 0-0.104 0.105-0.18 0.227-0.229 0.357-0.133 0.355-0.057 0.771 0.229 1.057l4.586 4.586c0.286 0.286 0.702 0.361 1.057 0.229 0.13-0.049 0.252-0.124 0.357-0.229 0-0 0-0 0-0l9.708-9.708 9.708 9.708c0 0 0 0 0 0 0.105 0.105 0.227 0.18 0.357 0.229 0.356 0.133 0.771 0.057 1.057-0.229l4.586-4.586c0.286-0.286 0.362-0.702 0.229-1.057-0.049-0.13-0.124-0.252-0.229-0.357z"></path>
-    </symbol>
-  </svg>
-</head>
-...
-```
-We will use some icons for our like and dislike buttons
+1. First let's add some necessary HTML markup so that we can use click events to fire off our methods. We will use some icons for our like and dislike buttons
 `src/components/actions.js`
 ```javascript
 ...
