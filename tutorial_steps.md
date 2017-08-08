@@ -656,9 +656,48 @@ In this step we will implement Vuex state management system for our app. For an 
 
 So what is Vuex? It is a centralized store for every component in the app. It ensures that its state can only be mutated in a predicatable way. Why would we want to use Vuex? There can be many answers to this question - but two good cases for implementing Vuex in your app are when: 
 1. multiple components depend on the same piece of state, or when 
-2. actions from different components have to mutate the same piece of state. 
+2. actions from different components have to mutate the same piece of state.
 
-There are 5 core concepts to Vuex. They are state, actions, mutations, getters, and modules. In this implementation we will look at all of these except for getters. Modules are a way to divide the store up into smaller parts, each with their own state, mutations, actions, and gettes. State is an object that contains all of the data and will act as the single source of truth for state in the application. Mutations are the only mechanism to change state. You must commit a mutation with a type and a handler function which will actually perform the state modification. Actions are similar to mutations except their jobs are to commit mutations. 
+At it's basic level a Vuex Store looks like this:
 
+```javascript
+const Store = new Vuex.Store({
+    modules: {
+    },
+    
+    state: {
+    },
+    
+    getters: {
+    },
+
+    mutations: {
+    },
+
+    actions: {
+    },
+  })
+```
+
+There are 5 core concepts to Vuex. They are state, actions, mutations, getters, and modules. In this implementation we will look at all of these except for getters. 
+
+## Modules
+Modules are a way to divide the store up into smaller parts, each with their own state, mutations, actions, and gettes. 
+
+## State
+State is an object that contains all of the data and will act as the single source of truth for state in the application. State can be populated with default data.
+
+```javascript
+state: {
+  foo: "bar",
+  baz: 0
+    },
+```
+
+## Mutations
+Mutations are the only mechanism to change state. You must commit a mutation with a type and a handler function which will actually perform the state modification. Mutations happen synchronously, meaning that each commit will happen in the order that they are called in. This can be problomatic when working with AJAX calls. Luckily Vuex has something to help with this!
+
+## Actions
+Actions are similar to mutations except for two things. First they dont directly mutate state. Instead they call a mutation, passing the data that will be committed. Second, and possibly most importantly, is that actions can happen asynchronously!
 
 And there we go! The app is complete!
