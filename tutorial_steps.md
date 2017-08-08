@@ -536,3 +536,135 @@ That's it! Now we are updating our like count from our actions component.
 
 
 ### Step-7 - Use Computed Properties to Render Movie Information
+In this last step we will complete the app, and learn about computed properties! Now that we have most of the functionality built out, we will need to have some actual data to interact with. We have a `json` file with a list of movie objects with a movie name and a url that points to a poster of that movie. Up til now our templates have been very simple. We have some data or some prop with a name and a value, and we simply bind that data in the template. But what if you have some data that is not a simple key value pairing? For instance, what if you had someone's name, but in the template you wanted to display their name backwards for some odd reason. 
+
+```javascript
+...
+<div>
+  {{ name.split('').reverse().join('') }}
+</div>
+...
+```
+
+That looks kind of ugly, and you can imagine there could be much more complex pieces of logic for information you would want to render in the template. This is where computed properties come in handy. They can all this complex logic and allow us to simply use the name of that property in the template. 
+
+
+```javascript
+...
+<div>
+  {{ reversedName }}
+</div>
+
+...
+
+computed: {
+  reversedName() {
+    return this.name.split('').reverse().join('')
+  }
+}
+...
+```
+
+This cleans up our templates and allows us to handle any complex interactions with our data more easily! So much the same as methods, computed is a custom attribute Vue implements. Inside the computed attribute, we declare functions for all of our computed properties. One other important note, is that any time a piece of data is updated, its computed property will also be updated. Vue also implements watched properties, which can react to changes in data, but for now we will focus on computed properties. 
+
+With this in mind, let's think about how we will interact with our data. We have a list of movie objects, and each has a key value pair of name and image url. We have a `movies` component that can render the name and image of one movie at a time. So, we should pass a movie object as a prop to our `movies` component. But how will we select which movie to display from the list? One way would be to just randomly select a movie from the movies list and pass that in as a prop. But what if order matters or we don't want to potentially see the same movie twice? Another way is to keep track of an index in the list to select a movie from, and pass the movie at that inex to our `movies` component. We will choose to do it this way!
+
+1. First let's capture our movie-data and set up the initial index of that list we want to render
+
+`src/components/app.js`
+```javascript
+...
+ data(){
+  return {
+    likes: 0,
+    imageIndex: 0,
+    movieData: window.movieDataJson.posters
+  }
+ }
+...
+```
+
+We have already set movieData on the window so that we can easily use this JSON.
+
+2. Now that we have some data to work with, let's pass that movie object to our `movies` component.
+
+`src/components/app.js`
+```javascript
+...
+<div>
+  <app-header :likes="likes"></app-header>
+  <movies :movie="movie"></movies>
+  <actions @handleLikes="handleLikes" @handleSkip="handleSkip"></actions>
+</div>
+...
+
+computed: {
+  movie() {
+    const self = this
+    return self.movieData[self.imageIndex]
+  }
+},
+...
+```
+
+Here we are using a computed property to select which movie we will send as a prop to our `movies` component. We could also accomplish this directly in the template with something like `<movies :movie="movieData[imageIndex]"></movies>`, but using a computed property can be a more clean approach.
+
+3. Now that we are passing the movie object, we need to update our `movies` component to use this object. This means more computed properties! Instead of taking the image url directly from a prop, we are now getting it from our movie object. 
+
+``
+```javascript
+...
+
+<div class="movies">
+  <div class="movie-poster-container">
+    <img class="movie-poster" v-bind:src="extractImageUrl" v-bind:key="extractImageUrl">
+    <div class="movie-name">{{ extractImageName }}</div>
+  </div>
+</div>
+    
+...
+Vue.component("movies", {
+  template: html,
+  props: {
+    movie: {
+      type: Object,
+      required: true,
+    }
+  },
+
+...
+
+computed: {
+  extractImageUrl() {
+    const self = this
+    return self.movie.url
+  },
+  extractImageName() {
+    const self = this
+    return self.movie.name
+  }
+},
+
+...
+```
+
+Here we update our props to take in a movie object, and we define two computed properties to extract the information we want to bind to the template.
+
+4. The last step is to implement our `incrementImage()` method on our `app` component so that when we like or dislike a movie, we cylce to the next movie. 
+
+`src/components/app.js`
+```javascript
+...
+incrementImage() {
+  const self = this
+
+  self.imageIndex += 1
+
+  if(self.imageIndex > (self.movieData.length-1)) {
+    self.imageIndex = 0
+  }
+}
+...
+```
+
+And there we go! The app is complete!
