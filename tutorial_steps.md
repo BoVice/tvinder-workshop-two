@@ -134,6 +134,7 @@ Here we use key value pairs on our data object to set an initial value for likes
 
 2. Next we will use data binding to render this value in our template.
 
+`src/components/header.js`
 ```
 ...
 <div class="header--right">
