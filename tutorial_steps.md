@@ -96,7 +96,7 @@ So without further adeu, let's register our first component. We will be adding t
   - The script
 
 `src/components/header.js`
-```
+```javascript
 ((() => {
   const html = `
   <div class="header">
@@ -123,7 +123,7 @@ There are many ways to define the template for a Vue component. Here we are simp
 3. Now that we have a component to render, we need to load it into our app. Add a refernce to the component `<script src="src/components/header.js"></script>` to our `index.html` in order to load it.
 
 `index.html`
-```
+```html
 ...
 <body>
 
@@ -141,7 +141,7 @@ There are many ways to define the template for a Vue component. Here we are simp
 4. Now that we have loaded the component, we need to render it. Add `<app-header></app-header>` to our `app.js` component.
 
 `src/components/app.js`
-```
+```javascript
 ((() => {
   const html = `
     <div>
@@ -165,7 +165,7 @@ In this step we will be adding data to our component and using data binding to r
 Data is an important part of Vue components. They keep a sort of local state in the component. One important gotcha with data on a component is that it must be a function. 
 
 Ex:
-```
+```javascript
 data: function () {
   return {
     someKey: SomeValue
@@ -178,7 +178,7 @@ If you look at the markup for the `app-header` you will see that we have hardcod
 1. First we will add the data function to our component. 
 
 `src/components/header.js`
-```
+```javascript
 data(){
   return {
     likes: 0
@@ -191,7 +191,7 @@ Here we use key value pairs on our data object to set an initial value for likes
 2. Next we will use data binding to render this value in our template.
 
 `src/components/header.js`
-```
+```javascript
 ...
 <div class="header--right">
   <h1>votes</h1>
@@ -214,7 +214,7 @@ In Vue, every component is a standalone instance. It is isolated and has its own
 
 To declare a prop on your child component you must first make a reference to the custom Vue attribute. You do this by adding:
 
-```
+```javascript
 props: {
   // Props go here.
 }
@@ -222,7 +222,7 @@ props: {
 
 to your component. Next, inside this attribute, you define the prop you will be recieving from the parent component. There are a few important pieces of information you can set inside this definition. Here is an example: 
 
-```
+```javascript
 props: {
   someString: {
     type: String,
@@ -239,7 +239,7 @@ Now that we know the basics of props, let's leverage them in our app. We are goi
 1. First we will create a new component `movies`.
 
 `src/components/movies.js`
-```
+```javascript
 ((() => {
   const html = `
     <div class="movies">
@@ -255,7 +255,7 @@ Now that we know the basics of props, let's leverage them in our app. We are goi
 2. Next we will add the prop we want to recieve from the parent component. To start let's just capture an image url and render that on the page. So we will declare a prop called `image_url` and we know that the url is a `String`.
 
 `src/components/movies.js`
-```
+```javascript
 ((() => {
   const html = `
     <div class="movies">
@@ -277,7 +277,7 @@ Now that we know the basics of props, let's leverage them in our app. We are goi
 3. Next we need to pass this data to our `movies` component. We will render our `movies` component in the `app` component. So we will places it inside the markup, and pass the `"image_url` prop. Here you can see the value of the prop is also `image_url`. Actually we are setting the value of `image_url` inside the data of this component - `image_url: "https://goo.gl/Puw6Ar"`. This will be useful for us later when we want to change the value of `image_url` on the fly.
 
 `src/components/app.js`
-```
+```javascript
 ((() => {
   const html = `
     <div>
@@ -300,7 +300,7 @@ Now that we know the basics of props, let's leverage them in our app. We are goi
 4. Last but not least we need to render the image! To do this we just need to add some HTML to display the image. 
 
 `src/components/movies.js`
-```
+```javascript
 <div class="movie-poster-container">
   <img class="movie-poster" v-bind:src="image_url">
 </div>
@@ -312,7 +312,7 @@ Now we are using props to render an image!
 ### Step-5 - Create First Method
 In this step we will be creating our first method and triggering that method from the webpage. Methods are another Vue.js custom attribute. We use methods to define the behaviors of a component. All methods are housed in the 
 
-```
+```javascript
 methods: {
   // My methods go here.
 }
@@ -320,7 +320,7 @@ methods: {
 attribute on a Vue.js component. Inside methods we can declare any functions we will need. For example, let's say we had a calculator component, we might need a method to do some addition or subtraction. 
 
 `calculator.js`
-```
+```javascript
  methods: {
  
   add(a, b) {
@@ -340,7 +340,7 @@ attribute on a Vue.js component. Inside methods we can declare any functions we 
 You can even use methods inside other methods by using a refernce to `this`. For example: 
 
 `talk.js`
-```  
+```javascript
   say() {
     this.phrase("I'm Pickle Rickkkk!")
   },
@@ -360,7 +360,7 @@ Now that we know some of the basics about methods, let's wire up some in our com
 1. First let's make an actions component that will contain all of the interactions we want to have with the app. This will be helpful to us later as we continue to add more and more pieces. 
 
 `src/components/actions.js`
-```
+```javascript
 ((() => {
   const html = `
   <div class="actions">
@@ -377,7 +377,7 @@ Now that we know some of the basics about methods, let's wire up some in our com
 2. Next we will add our methods attribute and a simple method.
 
 `src/components/actions.js`
-```
+```javascript
 ((() => {
   const html = `
   <div class="actions">
@@ -399,7 +399,7 @@ Now that we know some of the basics about methods, let's wire up some in our com
 3. Finally let's fire off this method from a link on the webpage.
 
 `src/components/actions.js`
-```
+```javascript
 ((() => {
   const html = `
   <div class="actions">
