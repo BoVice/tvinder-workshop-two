@@ -101,3 +101,60 @@ There are many ways to define the template for a Vue component. Here we are simp
 
 5. Presto! That is it, our first component.
 6. (Optional) Add in some CSS styling for our component in `src/assets/stylesheets/tvinder.css`
+
+
+### Step-3 - Adding Data to our Component
+In this step we will be adding data to our component and using data binding to render our values.
+
+Data is an important part of Vue components. They keep a sort of local state in the component. One important gotcha with data on a component is that it must be a function. 
+
+Ex:
+```
+data: function () {
+  return {
+    someKey: SomeValue
+  }
+}
+```
+
+If you look at the markup for the `app-header` you will see that we have hardcoded a `0` as the value for our likes. This is not very useful... Instead we will declare some attribute in our data object that we will use to render the amount of likes. We will be able to manipulate this data in our app and dynamically display the number of likes we have.
+
+1. First we will add the data function to our component. 
+
+`src/components/header.js`
+```
+data(){
+  return {
+    likes: 0
+  }
+}
+```
+
+Here we use key value pairs on our data object to set an initial value for likes.
+
+2. Next we will use data binding to render this value in our template.
+
+```
+...
+<div class="header--right">
+  <h1>votes</h1>
+  <div class="header__data">
+    <h1>{{ likes }}</h1>
+  </div>
+</div>
+...
+```
+
+The way you bind data in Vue is with the double `{{  }}`. Inside the curly brackets, all you need to do is include the name of the attribute you want to bind to.
+
+
+### Step-4 - Use Props to Pass Data
+
+
+### Step-5 - Create First Method
+
+
+### Step-6 - Use Events to Transmit Data
+
+
+### Step-7 - Use Computed Properties to Render Movie Information
