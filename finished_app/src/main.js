@@ -3,5 +3,6 @@
 
   new Vue({
     el: '#app',
+    store: window.store,
   })
 }))()
