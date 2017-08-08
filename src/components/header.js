@@ -7,7 +7,7 @@
     <div class="header--right">
       <h1>votes</h1>
       <div class="header__data">
-        <h1>0</h1>
+        <h1>{{ likes }}</h1>
       </div>
     </div>
   </div>
@@ -15,5 +15,10 @@
 
   Vue.component("app-header", {
     template: html,
+    data(){
+      return {
+        likes: 0
+      }
+    }
   })
 }))()
