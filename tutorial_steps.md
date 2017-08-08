@@ -12,6 +12,62 @@ A Step by step process to building a simple Vue.js app
 
 ## Steps:
 ### Step-1 - Scaffolding the app
+In this step we will be bootstrapping our app.
+
+First we are going to create `main.js` which will look like so: 
+
+```javascript
+((() => {
+  const App = window.App
+  const Vue = window.Vue
+
+  Vue.component("tvinder-app", App)
+
+  new Vue({
+    el: '#app',
+    data: {
+      hello: "world"
+    }
+  })
+}))()
+```
+
+Lets break down what's going on here.
+
+```javascript
+  const App = window.App
+  const Vue = window.Vue
+```
+
+These two lines are pretty straigt forward. We are getting a reference to `Vue` and something called `App` which is simply a property we added to the `window` object in another file (`app.js`).
+
+```javascript
+  Vue.component("tvinder-app", App)
+```
+
+Next we register a component with vue to be used later. This will be covered more in a later, and infact will be done slightly differently. This simply illustrates a second way to register a component.
+
+```javascript
+ new Vue({
+    el: '#app',
+    data: {
+      hello: "world"
+    }
+  })
+```
+
+Finally we call `new Vue()`. This is the entry point of our app and attaches it to an element on the page that we define (in this case `#app`). If you look at `index.html`, you will notice that `#app` is a div that wraps our app. What is neat about this is that you could have a small Vue app living instide a larger webapp by simply bootstrapping an id on an element withen that larger webapp.
+
+Looking at the changelog, you will probably notice a few more files. `movie-data.json` is a file with some data that we will be using later on. `app.js` will also be covered in more detail in a later step. `index.html` is the entry point into our app. I do want to point out one thing:
+
+```html
+<script src="src/components/app.js"></script>
+<script src="src/main.js"></script>
+```
+
+We must load all of our components before loading the file that bootstraps the application. If we dont then when Vue is doing its thing it will not know that about any components that we have made.
+
+Oh...and ofcourse we have `vue.js`, the star of this show!
 
 ### Step-2 - Our first component
 In this step we are going to build our first component. What is a component? 
