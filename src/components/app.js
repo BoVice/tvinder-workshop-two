@@ -4,7 +4,10 @@
       <app-header :likes="likes"></app-header>
       <movies :movie="movie"></movies>
       <actions @handleLikes="handleLikes" @handleSkip="handleSkip"
-                @handleDisLikes="handleDisLikes" :hide="hide"></actions>
+                @handleDisLikes="handleDisLikes"
+                @toggleShowLists="toggleShowLists">
+      </actions>
+      <lists :showLists="showLists" @closeModal="toggleShowLists"></lists>
     </div>
   `
 
@@ -14,7 +17,7 @@
       return {
         imageIndex: 0,
         movieData: window.movieDataJson.posters,
-        hide: false,
+        showLists: false,
       }
     },
 
@@ -65,10 +68,15 @@
 
         if(self.imageIndex > (self.movieData.length-1)) {
           self.imageIndex = 0
-          self.hide = true
         } else {
-          self.imageIndex += 1
+          self.imageIndex +=1
         }
+      },
+
+      toggleShowLists() {
+        const self = this
+
+        self.showLists = !self.showLists
       }
     }
 

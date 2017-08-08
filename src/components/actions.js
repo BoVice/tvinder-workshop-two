@@ -1,7 +1,7 @@
 ((() => {
   const html = `
   <div class="actions">
-    <div class="controls" v-show="!hide">
+    <div class="controls">
       <div class="icon-button" v-on:click="decrement()">
           <svg class="icon icon-cross"><use xlink:href="#icon-cross"></use></svg>
       </div>
@@ -9,20 +9,17 @@
       <div class="icon-button" v-on:click="increment()">
         <svg class="icon icon-heart"><use xlink:href="#icon-heart"></use></svg>
       </div>
-    <lists v-show="hide"></lists>
+      <div class="list">
+      <button type="button" id="list_button" v-on:click="displayLists()">
+        View Likes and Dislikes
+      </button>
+  </div>
     </div>
   </div>
   `
 
   Vue.component("actions", {
     template: html,
-
-    props: {
-      hide: {
-        type: Boolean,
-        required: true,
-      }
-    },
 
     methods: {
       skip() {
@@ -39,6 +36,12 @@
         const self = this
 
         self.$emit('handleDisLikes', 1)
+      },
+
+      displayLists() {
+        const self = this
+
+        self.$emit('toggleShowLists')
       }
     }
   })
