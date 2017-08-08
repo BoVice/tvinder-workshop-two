@@ -1,7 +1,7 @@
 ((() => {
   const html = `
   <div class="actions">
-    <div class="controls">
+    <div class="controls" v-show="!hide">
       <div class="icon-button" v-on:click="decrement()">
           <svg class="icon icon-cross"><use xlink:href="#icon-cross"></use></svg>
       </div>
@@ -9,12 +9,20 @@
       <div class="icon-button" v-on:click="increment()">
         <svg class="icon icon-heart"><use xlink:href="#icon-heart"></use></svg>
       </div>
+    <lists v-show="hide"></lists>
     </div>
   </div>
   `
 
   Vue.component("actions", {
     template: html,
+
+    props: {
+      hide: {
+        type: Boolean,
+        required: true,
+      }
+    },
 
     methods: {
       skip() {

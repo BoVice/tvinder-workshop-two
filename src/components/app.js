@@ -4,7 +4,7 @@
       <app-header :likes="likes"></app-header>
       <movies :movie="movie"></movies>
       <actions @handleLikes="handleLikes" @handleSkip="handleSkip"
-                @handleDisLikes="handleDisLikes"></actions>
+                @handleDisLikes="handleDisLikes" :hide="hide"></actions>
     </div>
   `
 
@@ -13,7 +13,8 @@
     data(){
       return {
         imageIndex: 0,
-        movieData: window.movieDataJson.posters
+        movieData: window.movieDataJson.posters,
+        hide: false,
       }
     },
 
@@ -42,6 +43,7 @@
 
 
         self.$store.dispatch("updateLikeCount", vote)
+        self.$store.dispatch("updateLikedMovies", self.movie)
         self.incrementImage()
       },
 
@@ -49,6 +51,7 @@
         const self = this
 
         self.$store.dispatch("updateDisLikeCount", vote)
+        self.$store.dispatch("updateDisLikedMovies", self.movie)
         self.incrementImage()
       },
 
@@ -60,10 +63,11 @@
       incrementImage() {
         const self = this
 
-        self.imageIndex += 1
-
         if(self.imageIndex > (self.movieData.length-1)) {
           self.imageIndex = 0
+          self.hide = true
+        } else {
+          self.imageIndex += 1
         }
       }
     }
