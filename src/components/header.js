@@ -17,7 +17,7 @@
     template: html,
     props: {
       likes: {
-        type: String,
+        type: Number,
         required: true,
       }
     }
