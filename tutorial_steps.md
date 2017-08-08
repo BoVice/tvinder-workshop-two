@@ -9,6 +9,8 @@ A Step by step process to building a simple Vue.js app
 * Methods
 * Data Binding
 * Events / Event Handling
+* Condition based rendering
+* Vuex state management
 
 ## Steps:
 ### Step-1 - Scaffolding the app
