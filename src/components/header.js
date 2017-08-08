@@ -15,9 +15,10 @@
 
   Vue.component("app-header", {
     template: html,
-    data(){
-      return {
-        likes: 0
+    props: {
+      likes: {
+        type: String,
+        required: true,
       }
     }
   })

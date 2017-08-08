@@ -53,3 +53,44 @@ h1 {
   padding: .5em;
   font-size: 1.25em;
 }
+
+/*-------------------- ACTIONS CSS --------------------*/
+#skip {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.25em;
+  text-decoration:none;
+  color: inherit;
+}
+
+#heart {
+  width: 3em;
+  height: 3em;
+}
+#cancel {
+  width: 3em;
+  height: 3em;
+}
+
+.icon-button {
+  cursor: pointer;
+  width: 5em;
+  margin: 0 1em 0 1em;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+}
+
+.icon {
+  fill: #04AC44;
+  height: 2.5em;
+  width: 2.5em;
+}
+/*-----------------------------------------------------*/
+
+.svg-header {
+  display: none;
+}
