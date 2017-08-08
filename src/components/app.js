@@ -11,7 +11,6 @@
     template: html,
     data(){
       return {
-        likes: 0,
         imageIndex: 0,
         movieData: window.movieDataJson.posters
       }
@@ -21,13 +20,21 @@
       movie() {
         const self = this
         return self.movieData[self.imageIndex]
-      }
+      },
+
+      likes() {
+        const self = this
+
+        return self.$store.state.likes
+      },
     },
 
     methods: {
       handleLikes(vote) {
         const self = this
-        self.likes += vote
+
+
+        self.$store.dispatch("updateLikeCount", vote)
         self.incrementImage()
       },
 

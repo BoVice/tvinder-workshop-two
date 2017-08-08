@@ -15,11 +15,12 @@
 
   Vue.component("app-header", {
     template: html,
-    props: {
-      likes: {
-        type: Number,
-        required: true,
-      }
+    computed: {
+      likes() {
+        const self = this
+
+        return self.$store.state.likes
+      },
     }
   })
 }))()
