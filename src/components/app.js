@@ -3,7 +3,11 @@
     <div>
       <app-header :likes="likes"></app-header>
       <movies :movie="movie"></movies>
-      <actions @handleLikes="handleLikes" @handleSkip="handleSkip"></actions>
+      <actions @handleLikes="handleLikes" @handleSkip="handleSkip"
+                @handleDisLikes="handleDisLikes"
+                @toggleShowLists="toggleShowLists">
+      </actions>
+      <lists :showLists="showLists" @closeModal="toggleShowLists"></lists>
     </div>
   `
 
@@ -11,9 +15,9 @@
     template: html,
     data(){
       return {
-        likes: 0,
         imageIndex: 0,
-        movieData: window.movieDataJson.posters
+        movieData: window.movieDataJson.posters,
+        showLists: false,
       }
     },
 
@@ -21,13 +25,33 @@
       movie() {
         const self = this
         return self.movieData[self.imageIndex]
+      },
+
+      likes() {
+        const self = this
+
+        return self.$store.state.likes
+      },
+
+      disLikes() {
+        const self = this
+
+        return self.$store.state.disLikes
       }
     },
 
     methods: {
       handleLikes(vote) {
         const self = this
-        self.likes += vote
+        self.$store.dispatch("updateLikeCount", vote)
+        self.$store.dispatch("updateLikedMovies", self.movie)
+        self.incrementImage()
+      },
+
+      handleDisLikes(vote) {
+        const self = this
+        self.$store.dispatch("updateDisLikeCount", vote)
+        self.$store.dispatch("updateDisLikedMovies", self.movie)
         self.incrementImage()
       },
 
@@ -44,6 +68,12 @@
         if(self.imageIndex > (self.movieData.length-1)) {
           self.imageIndex = 0
         }
+      },
+
+      toggleShowLists() {
+        const self = this
+
+        self.showLists = !self.showLists
       }
     }
   })
