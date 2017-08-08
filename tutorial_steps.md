@@ -30,7 +30,7 @@ This is where all of the Javascript that defines a components behavior lives.
 #### Styling
 This is the CSS styling for a component. 
 
-You can leverage Vue to create these components in different ways. If you go to the Vue.js documentaion you will see information for Single File Components - https://vuejs.org/v2/guide/single-file-components.html. However in order to construct components this way you will need to compile them. We can build the components more simply using plain Javascript which is what we will be illustrating here.
+You can leverage Vue to create these components in different ways. If you go to the Vue.js documentaion you will see information for [Single File Components](https://vuejs.org/v2/guide/single-file-components.html). However in order to construct components this way you will need to compile them. We can build the components more simply using plain Javascript which is what we will be illustrating here.
 
 So without further adeu, let's register our first component. We will be adding the Header of our app.
 
@@ -39,6 +39,7 @@ So without further adeu, let's register our first component. We will be adding t
   - The template
   - The script
 
+src/components/header.js
 ```
 ((() => {
   const html = `
@@ -62,3 +63,5 @@ So without further adeu, let's register our first component. We will be adding t
 ```
 
 There are many ways to define the template for a Vue component. Here we are simply defining a string of HTML and setting it to a variable, and then telling the Vue component to use this string as the template. The other important part of this file is `Vue.component()`. Here we give the component the name of `app-header` and define what the template will be. Other component behavior will also be defined in this component. We will discuss this later.
+
+
