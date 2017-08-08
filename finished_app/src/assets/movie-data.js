@@ -1,4 +1,4 @@
-{
+window.movieDataJson = {
   "posters": [{
       "id": 1,
       "name": "Star Wars",
