@@ -1,7 +1,7 @@
 ((() => {
   const html = `
     <div>
-      <h1>Hollaaa</h1>
+      <app-header></app-header>
     </div>
   `
 
