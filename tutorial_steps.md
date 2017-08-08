@@ -649,4 +649,6 @@ incrementImage() {
 ...
 ```
 
+### Step-8 - Implement Vuex
+
 And there we go! The app is complete!
