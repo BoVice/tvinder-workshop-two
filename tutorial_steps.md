@@ -652,5 +652,7 @@ incrementImage() {
 ```
 
 ### Step-8 - Implement Vuex
+In this step we will implement Vuex state management system for our app. For an app this size, Vuex might not be necessary, but it is a good starting point to learn the core concepts of Vuex. So what is Vuex? It is a centralized store for every component in the app. It ensures that its state can only be mutated in a predicatable way. Why would we want to use Vuex? There can be many answers to this question - but two good cases for implementing Vuex in your app are when 1. multiple components depend on the same piece of state, or when 2. actions from different components have to mutate the same piece of state. There are 5 core concepts to Vuex. They are state, actions, mutations, getters, and modules. In this implementation we will look at all of these except for getters. Modules are a way to divide the store up into smaller parts, each with their own state, mutations, actions, and gettes. State is an object that contains all of the data and will act as the single source of truth for state in the application. Mutations are the only mechanism to change state. You must commit a mutation with a type and a handler function which will actually perform the state modification. Actions are similar to mutations except their jobs are to commit mutations. 
+
 
 And there we go! The app is complete!
