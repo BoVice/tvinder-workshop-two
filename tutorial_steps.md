@@ -427,7 +427,7 @@ Let's take a step back and look at the what is happening in the template. `v-on:
 Now that we know how to create a method that does some action, we want to implement our like, dislike, and skip methods. In this step let's wire up those actions to influence our like count. We will make like increment the count by one, dislike decrement the count by 1 and skip will not do anything to the count. So our `actions` component will cause an action that changes the value of `likes`, and our `header` component will have to know when `likes` has changed and render that value. Looking at the structure of the app, we see that `actions` and `header` are siblings, and children of the `tvinder-app` component. We know that we can use props to pass data from parent to child, but how can we pass information from child to parent? Every Vue component has an events interface. This allows the component to listen to an event, and trigger an event. We saw the first of this interface in the previous step where we used `v-on` to listen for a click event. Here we will want to do both, trigger an event for one of our three actions, and listen for that event on the parent component to register that something has happened. 
 1. First let's add some necessary HTML markup so that we can use click events to fire off our methods. 
 `index.html`
-```
+```javascript
 ...
   <link rel="stylesheet" type="text/css" href="src/assets/stylesheets/tvinder.css">
   <svg class="svg-header">
@@ -445,7 +445,7 @@ Now that we know how to create a method that does some action, we want to implem
 ```
 We will use some icons for our like and dislike buttons
 `src/components/actions.js`
-```
+```javascript
 ...
 <div class="actions">
   <div class="controls">
@@ -463,7 +463,7 @@ We will use some icons for our like and dislike buttons
 Here is the markup that will render those icons and also listen for click events that will trigger our three methods.
 2. Ok, now that we have some markup to work with, let's actually create our methods.
 `src/components/actions.js`
-```
+```javascript
 ...
 methods: {
   skip() {
@@ -484,7 +484,7 @@ methods: {
 Here we are defining the three actions we want to perform. `increment` and `decrement` are equivalent to 'like' and 'dislike'. So on click of the HTML element, do the corresponding action. So let's look at what these actions do. The only thing that they do is `$emit` something. `$emit()` is part of the components event interface. Inside the parentheses, we must specify an `eventName` and an optional argument for any data we want to pass along. So `increment()` will emit an event with the name of `handleLikes` along with the value of `1`. These events move upwards in the component tree. So the parent component of `actions` will be able to listen for an event with this name.
 3. Now that we are emitting named events, we can listen for them on the parent component. We can capture these events that will trigger some action in the parent component. 
 `src/components/app.js`
-```
+```javascript
 ...
 <div>
   <app-header></app-header>
@@ -496,7 +496,7 @@ Here we are defining the three actions we want to perform. `increment` and `decr
 The way you listen for these events is with a directive on the HTML element. We declare this directive with an `@` symbol and the event name we are listening for. So when we `$emit('handleLikes')` from `actions.js` `@handleLikes` will respond to that event. The second part to this directive is the method to call. This is the `="handleLikes"` part. All this meansis that we will fire off the `handleLikes` method on the component as the response to whatever event we have captured. 
 4. Now that we are listening to the events we are emitting, we need to implement the methods that will fire when we recieve those events. 
 `app.js`
-```
+```javascript
 ...
 methods: {
   handleLikes(vote) {
@@ -516,13 +516,13 @@ methods: {
 ```
 5. The last step is to add `likes` to our data function in `app.js` so that we can update that value, and pass it as a prop to our `header` component.
 `src/components/app.js`
-```
+```javascript
 ...
 <app-header :likes="likes"></app-header>
 ...
 ```
 `src/components/header.js`
-```
+```javascript
 ...
 props: {
   likes: {
