@@ -150,6 +150,107 @@ The way you bind data in Vue is with the double `{{  }}`. Inside the curly brack
 
 
 ### Step-4 - Use Props to Pass Data
+Now that we have successfully built out our first component and learned how to bind and render data, we will look at one way we can pass data between components. In this step we will learn how to pass data as a Prop from one component to another.
+
+In Vue, every component is a standalone instance. It is isolated and has its own scope. This means that any one components cannot directly reference another components data. In Vue in order to pass data from a parent component to a child component we use a custom attribute called **props**. Props are an example of 1-way data binding between a parent and child component. So what does this mean? Straight from the Vue documentation -
+
+> when the parent property updates, it will flow down to the child, but not the other way around
+
+To declare a prop on your child component you must first make a reference to the custom Vue attribute. You do this by adding:
+
+```
+props: {
+  // Props go here.
+}
+```
+
+to your component. Next, inside this attribute, you define the prop you will be recieving from the parent component. There are a few important pieces of information you can set inside this definition. Here is an example: 
+
+```
+props: {
+  someString: {
+    type: String,
+    required: false,
+    default: "Hello World"
+  }
+}
+```
+
+This is all you need to do on the child component to declare a prop. The last thing to do is to pass in the prop to the child component - from the parent component - in the template. So if our child component was called `an-amazing-component` we would pass our `someString` prop to it like this: `<an-amazing-component :someString="'this is an amazing component!'"></an-amazing-component>`
+
+Now that we know the basics of props, let's leverage them in our app. We are going to be rendering movie information; it would be overkill for the component that renders the movie information to know about the entire set of information. So this is a good spot to use props - to pass down only the movie information that we care about! 
+
+1. First we will create a new component `movies`.
+
+`src/components/movies.js`
+```
+((() => {
+  const html = `
+    <div class="movies">
+    </div>
+  `
+  Vue.component("movies", {
+    template: html,
+  })
+
+}))()
+```
+
+2. Next we will add the prop we want to recieve from the parent component. To start let's just capture an image url and render that on the page. So we will declare a prop called `image_url` and we know that the url is a `String`.
+
+`src/components/movies.js`
+```
+((() => {
+  const html = `
+    <div class="movies">
+    </div>
+  `
+  Vue.component("movies", {
+    template: html,
+    props: {
+      image_url: {
+        type: String,
+        required: true,
+      }
+    }
+  })
+
+}))()
+```
+
+3. Next we need to pass this data to our `movies` component. We will render our `movies` component in the `app` component. So we will places it inside the markup, and pass the `"image_url` prop. Here you can see the value of the prop is also `image_url`. Actually we are setting the value of `image_url` inside the data of this component - `image_url: "https://goo.gl/Puw6Ar"`. This will be useful for us later when we want to change the value of `image_url` on the fly.
+
+`src/components/app.js`
+```
+((() => {
+  const html = `
+    <div>
+      <app-header></app-header>
+      <movies :image_url="image_url"></movies>
+    </div>
+  `
+
+  Vue.component("tvinder-app", {
+    template: html,
+    data(){
+      return {
+        image_url: "https://goo.gl/Puw6Ar"
+      }
+    }
+  })
+}))()
+```
+
+4. Last but not least we need to render the image! To do this we just need to add some HTML to display the image. 
+
+`src/components/movies.js`
+```
+<div class="movie-poster-container">
+  <img class="movie-poster" v-bind:src="image_url">
+</div>
+```
+
+Now we are using props to render an image!
 
 
 ### Step-5 - Create First Method
