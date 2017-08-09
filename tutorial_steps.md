@@ -685,8 +685,8 @@ There are 5 core concepts to Vuex. They are state, actions, mutations, getters, 
 Modules are a way to divide the store up into smaller parts, each with their own state, mutations, actions, and gettes. 
 
 ## State
-State is an object that contains all of the data and will act as the single source of truth for state in the application. State can be populated with default data.
-
+From the [Vuex docs](https://vuex.vuejs.org/en/state.html):
+> Vuex uses a single state tree - that is, this single object contains all your application level state and serves as the "single source of truth". This also means usually you will have only one store for each application. A single state tree makes it straightforward to locate a specific piece of state, and allows us to easily take snapshots of the current app state for debugging purposes.
 ```javascript
 state: {
   foo: "bar",
@@ -694,8 +694,38 @@ state: {
     },
 ```
 
+That's all fine and dandy but how do we use this in our componenets? Well, if you look at `app.js` you will see that we have moved `likes` out of the `data` function and into a computed property.
+
+```javascript
+ likes() {
+   const self = this
+   return self.$store.state.likes
+ },
+```
+
+But why a computed property you may be wondering? Well vuex stores are reactive so by retreving a store prop in a computed property we ensure that as `self.$store.state.likes` changes, it will trigger the computed property to re-evaluate. This will also trigger any DOM or other updates you may tie to that property.
+
 ## Mutations
-Mutations are the only mechanism to change state. You must commit a mutation with a type and a handler function which will actually perform the state modification. Mutations happen synchronously, meaning that each commit will happen in the order that they are called in. This can be problomatic when working with AJAX calls. Luckily Vuex has something to help with this!
+Mutations are the only mechanism to change state. Think of these as setters. You must commit a mutation with a type and a handler function which will actually perform the state modification. A typical mutation looks like so:
+
+```javascript
+...
+setFoo(state, someData) {
+  state.foo = someData
+},
+...
+```
+
+You may have noticed that we are passing in two arguments. The first is always available to mutations and that is `state`, which is simply a reference to the stores state. The second is a payload of data.
+
+There is a special way to call a mutation and I think the Vuex docs do a good job explaining it.
+
+> You cannot directly call a mutation handler. Think of it more like event registration: "When a mutation with type increment is triggered, call this handler." To invoke a mutation handler, you need to call store.commit with its type:
+```javascript
+store.commit("setFoo", 10)
+```
+
+Mutations happen synchronously, meaning that each commit will happen in the order that they are called in. This can be problomatic when working with AJAX calls. Luckily Vuex has something to help with this!
 
 ## Actions
 Actions are similar to mutations except for two things. First they dont directly mutate state. Instead they call a mutation, passing the data that will be committed. Second, and possibly most importantly, is that actions can happen asynchronously!
